@@ -1,10 +1,14 @@
 import { BookOpenCheck } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  function handlelLogout() {
-    localStorage.clear("");
-    window.location.reload();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    // remove only the auth token instead of clearing all storage
+    localStorage.removeItem("islogin");
+    navigate("/", { replace: true });
   }
   return (
     <div className="w-full h-full flex items-center justify-between px-4 shadow-md z-3">
@@ -13,7 +17,7 @@ export default function Navbar() {
       </div>
       <div>
         <button
-          onClick={handlelLogout}
+          onClick={handleLogout}
           className="px-4 py-2 border  rounded-lg cursor-pointer transition duration-300 hover:bg-black hover:text-white"
         >
           Logout
